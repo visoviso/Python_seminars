@@ -17,7 +17,7 @@
 
 import re
 
-input_word = input()
+input_word = input("ВВЕДИТЕ СЛОВО  ").upper()
 list_1 = {'[AEIOULNSTR]': '1', '[DG]': '2', '[BCMP]': '3', '[FHVWY]': '4', 'K': '5', '[JX]': '8', '[QZ]': '19'}
 for i in list_1:
     input_word = re.sub(i, list_1[i], input_word)
