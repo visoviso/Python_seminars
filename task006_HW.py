@@ -1,34 +1,32 @@
-# Задача 6: Вы пользуетесь общественным транспортом?
-# Вероятно, вы расплачивались за проезд и получали билет с номером.
-# Счастливым билетом называют такой билет с шестизначным номером,
-# где сумма первых трех цифр равна сумме последних трех.
-# Т.е. билет с номером 385916 – счастливый, т.к. 3+8+5=9+1+6.
-# Вам требуется написать программу, которая проверяет счастливость билета.
+# Дана строка (возможно, пустая), состоящая из букв A-Z:
 #
-# *Пример:*
+# AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB
 #
-# 385916 -> yes
-# 123456 -> no
+# Нужно написать функцию RLE, которая на выходе даст строку вида:
+# A4B3C2XYZD4E3F3A6B28
+#
+# И сгенерирует ошибку, если на вход пришла невалидная строка.
+# Пояснения:
+# Если символ встречается 1 раз, он остается без изменений;
+# Если символ повторяется более 1 раза, к нему добавляется количество повторений
 
-a = int(input("введите число : "))
+def rle(some_str):
+    res_list = []
+    some_str += ' '
+    temp_letter = some_str[0]
+    count_letter = 1
+    for ind in range(1, len(some_str)):
+        if some_str[ind] == temp_letter:
+            count_letter += 1
+        else:
+            if count_letter == 1:
+                res_list.append(f'{temp_letter}')
+            else:
+                res_list.append(f'{temp_letter}{count_letter}')
+            count_letter = 1
+            temp_letter = some_str[ind]
+    print(res_list)
+    print(*res_list, sep='')
 
-a1 = int(a / 100000)
-a2 = int((float(a / 100000) - a1) * 10)
-a3 = int((float(a / 10000) - int(a / 10000)) * 10)
-a4 = int((float(a / 1000) - int(a / 1000)) * 10)
-a5 = int((float(a / 100) - int(a / 100)) * 10)
-a6 = int((float(a / 110) - int(a / 10)) * 10)
 
-if (a1 + a2 + a3) == (a4 + a5 + a6):
-    print('yes')
-else:
-    print('no')
-
-
-
-# if len(number) == 6:
-#     sum1 = int(number) % 10 + int(int(number)/10) % 10 + int(int(number)/100) % 10
-#     sum2 = int(int(number)/1000) % 10 + int(int(number)/10000) % 10 + int(int(number)/100000) % 10
-#     print(f"{number} -> {sum1 == sum2}")
-# else:
-#     print('не счастливый билет')
+rle('AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB')
